@@ -1,0 +1,176 @@
+.TH VEX 1 "2025" "vex" "User Commands"
+.SH NAME
+vex \- AST-aware diff tool with syntax highlighting and inline editing
+.SH SYNOPSIS
+.B vex
+[\fIOPTIONS\fR] \fIfile1\fR \fIfile2\fR
+.SH DESCRIPTION
+.B vex
+is a modern AST-aware diff tool built with Zig for maximum performance.
+It understands the structure of your code, highlighting semantic differences
+like moved functions, renamed variables, and modified expressions instead of
+meaningless line-by-line changes.
+.PP
+Key features include:
+.IP \(bu 2
+AST-aware diff analysis
+.IP \(bu 2
+Side-by-side and unified diff views
+.IP \(bu 2
+Syntax highlighting
+.IP \(bu 2
+Inline editing capabilities
+.IP \(bu 2
+Git integration
+.IP \(bu 2
+Large file performance (1MB+ files in under a second)
+.SH OPTIONS
+.TP
+.BR \-s ", " \-\-side\-by\-side
+Display differences in side-by-side mode (default).
+.TP
+.BR \-u ", " \-\-unified
+Display differences in unified diff format.
+.TP
+.B \-\-ast
+Enable AST-aware diff mode for semantic analysis.
+.TP
+.B \-\-no\-color
+Disable color output.
+.TP
+.BR \-c ", " \-\-context " " \fIN\fR
+Number of context lines to show (default: 3).
+.TP
+.BR \-h ", " \-\-help
+Display help message and exit.
+.TP
+.BR \-v ", " \-\-version
+Display version information and exit.
+.SH KEYBINDINGS
+.SS Navigation
+.TP
+.BR j ", " \(da
+Scroll down
+.TP
+.BR k ", " \(ua
+Scroll up
+.TP
+.BR Space ", " "Page Down"
+Page down
+.TP
+.BR b ", " "Page Up"
+Page up
+.TP
+.B g
+Go to first line
+.TP
+.B G
+Go to last line
+.TP
+.B n
+Jump to next hunk
+.TP
+.B N
+Jump to previous hunk
+.SS View Modes
+.TP
+.B Tab
+Toggle side-by-side / unified view
+.TP
+.B w
+Toggle word diff
+.TP
+.B l
+Toggle line numbers
+.SS Editing
+.TP
+.B a
+Accept left (old) side
+.TP
+.B d
+Accept right (new) side
+.TP
+.B e
+Enter manual edit mode
+.TP
+.B u
+Undo last change
+.TP
+.B Ctrl+r
+Redo
+.SS General
+.TP
+.B /
+Search
+.TP
+.B ?
+Show help
+.TP
+.B q
+Quit
+.SH ENVIRONMENT
+.TP
+.B VEX_THEME
+Default color theme (tokyo-night, github-dark, monokai)
+.TP
+.B VEX_PAGER
+Pager program (default: none)
+.TP
+.B NO_COLOR
+Disable colors when set
+.SH EXAMPLES
+Compare two files:
+.PP
+.RS
+.B vex old_file.txt new_file.txt
+.RE
+.PP
+Side-by-side mode:
+.PP
+.RS
+.B vex -s old.zig new.zig
+.RE
+.PP
+Unified diff with 5 context lines:
+.PP
+.RS
+.B vex -u -c 5 before.js after.js
+.RE
+.PP
+Enable AST-aware mode:
+.PP
+.RS
+.B vex --ast old.py new.py
+.RE
+.PP
+Read from stdin:
+.PP
+.RS
+.B git diff | vex -
+.RE
+.PP
+.SH GIT INTEGRATION
+Configure vex as your default diff tool:
+.PP
+.RS
+.B git config --global diff.tool vex
+.br
+.B git config --global difftool.vex.cmd 'vex "$LOCAL" "$REMOTE"'
+.RE
+.PP
+Then use with:
+.PP
+.RS
+.B git difftool HEAD~3
+.RE
+.SH SEE ALSO
+.BR diff (1),
+.BR git (1),
+.BR delta (1)
+.SH AUTHOR
+ydah <https://github.com/ydah>
+.SH BUGS
+Report bugs at: https://github.com/ydah/vex/issues
+.SH COPYRIGHT
+Copyright \(co 2025 ydah.
+Licensed under the MIT License.

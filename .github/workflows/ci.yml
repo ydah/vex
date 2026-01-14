@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-22.04
+    env:
+      ZIG_LOCAL_CACHE_DIR: /tmp/zig-cache/local
+      ZIG_GLOBAL_CACHE_DIR: /tmp/zig-cache/global
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Prepare Zig cache dirs
+        run: mkdir -p /tmp/zig-cache/local /tmp/zig-cache/global
+
+      - name: Build (ReleaseFast)
+        run: nix develop --no-write-lock-file -c zig build -j1 -Doptimize=ReleaseFast --summary all
+
+      - name: Test (ReleaseFast)
+        run: nix develop --no-write-lock-file -c zig build -j1 -Doptimize=ReleaseFast test --summary all

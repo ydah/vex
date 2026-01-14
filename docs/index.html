@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>vex — AST-aware diff with inline editing</title>
+    <meta
+      name="description"
+      content="vex is a modern AST-aware diff tool with syntax highlighting, inline editing, and a beautiful TUI."
+    />
+    <meta property="og:title" content="vex — AST-aware diff tool" />
+    <meta
+      property="og:description"
+      content="Semantic diff, inline editing, and a beautiful TUI built with Zig."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+    <div class="bg-sun"></div>
+
+    <header class="site-header">
+      <div class="branding">
+        <div class="logo">VEX</div>
+        <div class="tagline">AST-aware diff tool</div>
+      </div>
+      <nav class="top-nav">
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+        <a href="#install">Install</a>
+        <a href="#usage">Usage</a>
+        <a href="#keybindings">Keybindings</a>
+        <a href="#themes">Themes</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-title">Navigation</div>
+        <a class="nav-link" href="#overview">Overview</a>
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#install">Install</a>
+        <a class="nav-link" href="#usage">Usage</a>
+        <a class="nav-link" href="#keybindings">Keybindings</a>
+        <a class="nav-link" href="#themes">Themes</a>
+        <a class="nav-link" href="#community">Community</a>
+      </aside>
+
+      <main class="content">
+        <section id="overview" class="panel hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Fast. Semantic. Terminal-native.</p>
+            <h1>Understand code changes instantly.</h1>
+            <p class="lede">
+              vex understands the structure of your code, highlights semantic
+              differences, and lets you edit inline. No guessing. No context switching.
+            </p>
+            <div class="cta-row">
+              <a class="btn primary" href="https://github.com/ydah/vex">GitHub Repo</a>
+              <a class="btn ghost" href="#install">Get Started</a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-label">Diff Mode</div>
+            <div class="hero-stat">AST-aware</div>
+            <div class="hero-label">Build</div>
+            <div class="hero-stat">Zig powered</div>
+            <div class="hero-label">Editing</div>
+            <div class="hero-stat">Inline merge</div>
+          </div>
+        </section>
+
+        <section id="features" class="panel">
+          <h2>Features</h2>
+          <p>Everything you need for meaningful diffs.</p>
+          <div class="theme-grid">
+            <div class="theme-card">
+              <h3>AST-aware diff</h3>
+              <p>Understand semantic changes like moved functions and renamed variables.</p>
+            </div>
+            <div class="theme-card">
+              <h3>Side-by-side view</h3>
+              <p>Compare files with aligned lines. Spot differences at a glance.</p>
+            </div>
+            <div class="theme-card">
+              <h3>Inline editing</h3>
+              <p>Accept left, accept right, or edit manually—all without leaving vex.</p>
+            </div>
+          </div>
+          <div class="theme-grid">
+            <div class="theme-card">
+              <h3>Syntax highlighting</h3>
+              <p>Beautiful, colorful diffs powered by Tree-sitter.</p>
+            </div>
+            <div class="theme-card">
+              <h3>Blazing fast</h3>
+              <p>Built with Zig and SIMD optimizations. Large files in under a second.</p>
+            </div>
+            <div class="theme-card">
+              <h3>Git integration</h3>
+              <p>Pipe git diff output directly to vex for enhanced visualization.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="install" class="panel">
+          <h2>Install</h2>
+          <p>Get vex in minutes. Requires Zig 0.13.0+.</p>
+          <pre><code>git clone https://github.com/ydah/vex.git
+cd vex
+zig build -Doptimize=ReleaseFast
+sudo cp zig-out/bin/vex /usr/local/bin/</code></pre>
+          <div class="split">
+            <div>
+              <h3>Git integration</h3>
+              <pre><code>git config --global diff.tool vex
+git config --global difftool.vex.cmd 'vex "$LOCAL" "$REMOTE"'</code></pre>
+            </div>
+            <div>
+              <h3>Platform support</h3>
+              <p>Linux (x86_64, aarch64), macOS (Intel, Apple Silicon). Windows planned.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="usage" class="panel">
+          <h2>Usage</h2>
+          <p>Simple commands, powerful output.</p>
+          <div class="split">
+            <div>
+              <h3>Basic</h3>
+              <pre><code>vex old.zig new.zig
+vex -s old.zig new.zig
+vex -u old.zig new.zig</code></pre>
+            </div>
+            <div>
+              <h3>AST mode</h3>
+              <pre><code>vex --ast old.py new.py</code></pre>
+            </div>
+            <div>
+              <h3>Git pipe</h3>
+              <pre><code>git diff | vex -
+git show HEAD | vex -</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="keybindings" class="panel">
+          <h2>Keybindings</h2>
+          <p>Vim-style navigation for terminal flow.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>j / ↓</td>
+                <td>Scroll down</td>
+              </tr>
+              <tr>
+                <td>k / ↑</td>
+                <td>Scroll up</td>
+              </tr>
+              <tr>
+                <td>n / N</td>
+                <td>Next / Previous hunk</td>
+              </tr>
+              <tr>
+                <td>Tab</td>
+                <td>Toggle side-by-side / unified</td>
+              </tr>
+              <tr>
+                <td>a</td>
+                <td>Accept left side</td>
+              </tr>
+              <tr>
+                <td>d</td>
+                <td>Accept right side</td>
+              </tr>
+              <tr>
+                <td>e</td>
+                <td>Manual edit mode</td>
+              </tr>
+              <tr>
+                <td>u</td>
+                <td>Undo</td>
+              </tr>
+              <tr>
+                <td>q</td>
+                <td>Quit</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="themes" class="panel">
+          <h2>Themes</h2>
+          <p>Crisp dark themes with enough contrast for long sessions.</p>
+          <div class="theme-grid">
+            <div class="theme-card">
+              <h3>Tokyo Night</h3>
+              <p>Balanced contrast with neon accents and calm blues. Default theme.</p>
+            </div>
+            <div class="theme-card">
+              <h3>GitHub Dark</h3>
+              <p>GitHub-inspired dark theme for a familiar look.</p>
+            </div>
+            <div class="theme-card">
+              <h3>Monokai</h3>
+              <p>High-energy highlights with bright syntax pops.</p>
+            </div>
+          </div>
+          <pre><code>export VEX_THEME=github-dark
+vex file1.txt file2.txt</code></pre>
+        </section>
+
+        <section id="community" class="panel">
+          <h2>Community</h2>
+          <p>Stay in the loop.</p>
+          <div class="doc-links">
+            <a href="https://github.com/ydah/vex">GitHub Repo</a>
+            <a href="https://github.com/ydah/vex/issues">Issues</a>
+            <a href="https://github.com/ydah/vex/releases">Releases</a>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div>vex is open source.</div>
+      <div class="glow">AST-aware diff tool</div>
+      <div class="year">2024</div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
